@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MiniChain Lab</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div>
+      <h1>MiniChain Lab</h1>
+      <p class="muted">A toy blockchain in a box: forks, reorgs and attacks on simulated nodes. No sockets, no real keys.</p>
+    </div>
+    <div class="who"><span id="who"></span> <button id="logout" type="button" hidden>Log out</button></div>
+  </header>
+
+  <main id="main">
+    <section id="auth" class="card narrow" aria-labelledby="auth-h">
+      <h2 id="auth-h">Log in</h2>
+      <form id="login-form">
+        <label for="u">Username</label>
+        <input id="u" autocomplete="username" required minlength="3" maxlength="32">
+        <label for="p">Password (10+ characters)</label>
+        <input id="p" type="password" autocomplete="current-password" required minlength="10" maxlength="128">
+        <div class="row">
+          <button type="submit">Log in</button>
+          <button type="button" id="register" class="ghost">Register</button>
+        </div>
+        <p id="auth-msg" class="msg" role="alert"></p>
+      </form>
+    </section>
+
+    <div id="app" hidden>
+      <section class="card" aria-labelledby="run-h">
+        <h2 id="run-h">Run a scenario</h2>
+        <form id="run-form">
+          <label for="scenario">Scenario</label>
+          <select id="scenario"></select>
+          <p id="scenario-desc" class="muted"></p>
+          <div class="grid4">
+            <div><label for="p-seed">Seed</label><input id="p-seed" type="number" min="0" max="2147483647" value="1"></div>
+            <div><label for="p-ticks">Ticks</label><input id="p-ticks" type="number" min="50" max="800"></div>
+            <div><label for="p-miners">Honest miners</label><input id="p-miners" type="number" min="3" max="8"></div>
+            <div><label for="p-rate">Block rate / tick</label><input id="p-rate" type="number" min="0.02" max="0.2" step="0.01"></div>
+            <div><label for="p-latency">Max latency (ticks)</label><input id="p-latency" type="number" min="1" max="8"></div>
+            <div data-sc="double_spend selfish_mining"><label for="p-share">Attacker hash share</label><input id="p-share" type="number" min="0.05" max="0.6" step="0.05"></div>
+            <div data-sc="double_spend"><label for="p-z">Confirmations (z)</label><input id="p-z" type="number" min="1" max="8"></div>
+            <div data-sc="partition"><label for="p-plen">Partition length</label><input id="p-plen" type="number" min="5" max="300"></div>
+            <div data-sc="honest partition double_spend selfish_mining"><label for="p-trials">Trials</label><input id="p-trials" type="number" min="1" max="10"></div>
+          </div>
+          <div class="row"><button type="submit">Run simulation</button></div>
+          <p id="run-msg" class="msg" role="status"></p>
+        </form>
+        <h3>Past runs</h3>
+        <ul id="runs" class="plain"></ul>
+      </section>
+
+      <section id="result" class="card" aria-labelledby="res-h" hidden>
+        <div class="rhead">
+          <h2 id="res-h">Result</h2>
+          <a id="export" class="btn" download>Export Markdown</a>
+        </div>
+        <dl id="summary" class="kv"></dl>
+        <div class="scroll"><table id="miners"><caption class="sr-only">Miners</caption>
+          <thead><tr><th scope="col">Miner</th><th scope="col">Hash share</th><th scope="col">Mined</th><th scope="col">On chain</th><th scope="col">Reward share</th></tr></thead>
+          <tbody></tbody></table></div>
+
+        <h3>Fork tree</h3>
+        <p class="muted legend">
+          <span class="dot canonical"></span> canonical
+          <span class="dot orphan"></span> orphan
+          <span class="dot withheld"></span> withheld (never published)
+          Click or press Enter on a block for details.
+        </p>
+        <div class="scroll" id="tree-wrap"></div>
+
+        <h3>Block detail and Merkle proof</h3>
+        <div id="detail" class="detail" aria-live="polite"><p class="muted">Select a block above.</p></div>
+
+        <h3>Events</h3>
+        <ul id="events" class="feed"></ul>
+
+        <details>
+          <summary>All blocks as a table</summary>
+          <div class="scroll"><table id="btable"><caption class="sr-only">All blocks</caption>
+            <thead><tr><th scope="col">Height</th><th scope="col">Hash</th><th scope="col">Parent</th><th scope="col">Miner</th><th scope="col">Tick</th><th scope="col">Status</th><th scope="col">Txs</th><th scope="col">Known by</th></tr></thead>
+            <tbody></tbody></table></div>
+        </details>
+      </section>
+
+      <section id="nak" class="card" aria-labelledby="nak-h" hidden>
+        <h2 id="nak-h">Double-spend odds vs attacker share</h2>
+        <p class="muted">Nakamoto's formula for z confirmations. The dashed line marks this run's attacker share.</p>
+        <div id="chart" class="scroll"></div>
+      </section>
+    </div>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

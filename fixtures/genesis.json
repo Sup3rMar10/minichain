@@ -1,0 +1,5 @@
+{
+  "note": "Simulated ledger. Names are made-up labels and signatures are toy HMACs, not real keys or wallets.",
+  "alloc": {"alice": 1000, "bob": 1000, "carol": 1000, "dave": 1000, "erin": 1000, "mallory": 500},
+  "bots": ["alice", "bob", "carol", "dave", "erin"]
+}

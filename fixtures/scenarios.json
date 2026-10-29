@@ -1,0 +1,22 @@
+{
+  "honest": {
+    "title": "Honest network",
+    "description": "Everyone follows the rules. Orphans still appear because blocks take time to travel.",
+    "defaults": {"ticks": 300, "miners": 5, "rate": 0.1, "latency": 3}
+  },
+  "partition": {
+    "title": "Network partition",
+    "description": "The network splits in two, each half keeps mining, then it heals and the lighter side reorgs.",
+    "defaults": {"ticks": 400, "miners": 6, "rate": 0.1, "latency": 3, "partition_len": 80}
+  },
+  "double_spend": {
+    "title": "Double spend (private fork)",
+    "description": "An attacker pays a merchant, secretly mines a conflicting fork, and publishes it after the goods ship.",
+    "defaults": {"ticks": 400, "miners": 5, "rate": 0.1, "latency": 3, "share": 0.3, "z": 3}
+  },
+  "selfish_mining": {
+    "title": "Selfish mining",
+    "description": "A miner withholds blocks and reveals them strategically to waste honest work and earn more than its share.",
+    "defaults": {"ticks": 600, "miners": 5, "rate": 0.1, "latency": 3, "share": 0.35}
+  }
+}
