@@ -7,7 +7,7 @@ Runs a toy proof-of-work network (real Merkle trees and mining, fake keys, no so
 ## Favourite scenario 🕵️
 The double spend: an attacker pays a merchant, mines a secret fork, waits for the goods to ship, then publishes. The Nakamoto chart shows why z=1 is a bad idea.
 ## Honest disclaimer ⚠️
-Untested prototype and teaching toy: no real consensus network, signatures are HMAC stand-ins, results are one simulator's opinion. Never use it near real funds or keys.
+Untested prototype and teaching toy: no real consensus network, signatures are HMAC stand-ins, results are one simulator's opinion. Never use it near real funds or keys. Download and use at your own discretion.
 ## Things that went wrong while building this
 - It was written without ever being run, so expect a typo or two on first launch.
 - Mining is real hashing at tiny difficulty, so large runs are capped on purpose (see docs/THREAT_MODEL.md).
